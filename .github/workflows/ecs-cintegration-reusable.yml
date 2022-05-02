@@ -29,6 +29,7 @@ jobs:
       ecs-cluster: ${{ secrets.ECS_CLUSTER }}
       ecs-service: ${{ secrets.ECS_SERVICE }}
       container-name: ${{ secrets.CONTAINER_NAME }}
+      container-name-2: ${{ secrets.CONTAINER_NAME_2 }}
       ecr-repository: ${{ secrets.ECR_REPOSITORY }}
       next-public-api-host: ${{ secrets.NEXT_PUBLIC_API_HOST }}
       next-public-graasp-auth-host: ${{ secrets.NEXT_PUBLIC_GRAASP_AUTH_HOST }}
