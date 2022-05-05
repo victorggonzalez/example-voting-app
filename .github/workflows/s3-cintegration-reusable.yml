@@ -33,4 +33,5 @@ jobs:
       app-id: ${{ secrets.APP_ID }}
       graasp-domain-dev: ${{ secrets.GRAASP_DOMAIN_DEV }}
       cloudfront-distribution: ${{ secrets.DEV_CLOUDFRONT_DISTRIBUTION }}
+      show-notifications: true
 
