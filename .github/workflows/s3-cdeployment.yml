@@ -24,7 +24,7 @@ jobs:
         REPOSITORY_NAME=$(echo $REPOSITORY | awk -F '/' '{print $2}')
         echo $TAG
         echo $REPOSITORY_NAME
-        JSON=$(jq --null-input --arg repo "$REPOSITORY_NAME" --arg tag "$TAG" '{$repo: $tag}')
+        JSON=$(jq --null-input --arg repo "$REPOSITORY_NAME" --arg tag "$TAG" '{"$repo": $tag}')
         echo $JSON
         echo ::set-output name=json::${JSON//'%'/'%25'}
 
