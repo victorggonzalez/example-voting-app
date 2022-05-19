@@ -7,9 +7,6 @@ on:
     tags:
       - v*
 
-env:
-  VERSION: 'latest'
-
 jobs:
   dispatch:
     name: Update staging versions
@@ -24,7 +21,8 @@ jobs:
         COMMIT=$(git rev-list --tags --max-count=1)
         TAG=$(git describe --tags $COMMIT)
         echo $TAG
-        echo ::set-output name=tag::${TAG}
+        JSON=$(jq --null-input --arg tag "$TAG" '{"voting-app-tag": $tag}')
+        echo ::set-output name=jsonString::${JSON//'%'/'%25'}
 
     - name: Repository Dispatch
       uses: peter-evans/repository-dispatch@v2
@@ -32,4 +30,4 @@ jobs:
         token: ${{ secrets.REPO_ACCESS_TOKEN }}
         repository: victorggonzalez/example-voting-app
         event-type: update-staging-version
-        client-payload: ${{toJson(steps.set-tag.outputs.tag)}}
+        client-payload: ${{steps.set-json.outputs.jsonString}}
