@@ -21,7 +21,8 @@ jobs:
     - name: Set tag job
       id: set-tag
       run: |
-        TAG=$(git describe --abbrev=0)
+        COMMIT=$(git rev-list --tags --max-count=1)
+        TAG=$(git describe --tags $COMMIT)
         echo $TAG
         echo ::set-output name=tag::${TAG}
 
