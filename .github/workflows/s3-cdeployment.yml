@@ -20,8 +20,11 @@ jobs:
       run: |
         COMMIT=$(git rev-list --tags --max-count=1)
         TAG=$(git describe --tags $COMMIT)
+        REPOSITORY=$(echo '${{ github.repository }}')
+        REPOSITORY_NAME=$(echo $REPOSITORY | awk -F '/' '{print $2}')
         echo $TAG
-        JSON=$(jq --null-input --arg tag "$TAG" '{"voting-app-tag": $tag}')
+        echo $REPOSITORY_NAME
+        JSON=$(jq --null-input --arg repo "$REPOSITORY_NAME" --arg tag "$TAG" '{$repo: $tag}')
         echo $JSON
         echo ::set-output name=json::${JSON//'%'/'%25'}
 
