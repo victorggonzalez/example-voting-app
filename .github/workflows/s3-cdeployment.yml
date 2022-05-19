@@ -1,0 +1,34 @@
+name: CI S3 reusable repo
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    tags:
+      - v*
+
+env:
+  VERSION: 'latest'
+
+jobs:
+  dispatch:
+    name: Update staging versions
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set tag job
+      id: set-tag
+      run: |
+        TAG=$(git describe --abbrev=0)
+        echo $TAG
+        echo ::set-output name=tag::${TAG}
+
+    - name: Repository Dispatch
+      uses: peter-evans/repository-dispatch@v2
+      with:
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
+        repository: victorggonzalez/example-voting-app
+        event-type: update-staging-version
+        client-payload: ${{toJson(steps.set-tag.outputs.tag)}}
