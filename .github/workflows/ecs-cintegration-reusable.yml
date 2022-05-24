@@ -11,8 +11,11 @@ on:
       - v*
 
   pull_request:
-   branches: [master]
-   types: [closed]
+    branches: [master]
+    types: [closed]
+
+  repository_dispatch:
+    types: [staging-deployment]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
