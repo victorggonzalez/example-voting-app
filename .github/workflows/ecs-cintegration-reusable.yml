@@ -29,6 +29,7 @@ jobs:
     uses: victorggonzalez/workflows/.github/workflows/ecs-cintegration.yml@main
     with:
       ecs-task-definition: '.aws/demo-ci.json'
+      tag: ${{ github.event.client_payload.tag }}
     secrets:
       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
