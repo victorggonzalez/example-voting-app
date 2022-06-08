@@ -6,9 +6,9 @@ on:
   #push:
   #branches:
   #  - master
-  push:
-    tags:
-      - v*
+  # push:
+  #   tags:
+  #     - v*
 
   pull_request:
     branches: [master]
