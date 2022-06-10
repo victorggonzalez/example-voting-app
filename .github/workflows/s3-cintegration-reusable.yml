@@ -27,7 +27,7 @@ jobs:
     env:
       SHA: ${{ secrets.REUSABLE_WORKFLOW_COMMIT_SHA }}
     # Reference reusable workflow file. Using the commit SHA is the safest for stability and security
-    uses: victorggonzalez/workflows/.github/workflows/s3-cintegration.yml@"$SHA"
+    uses: victorggonzalez/workflows/.github/workflows/s3-cintegration.yml@${{ secrets.REUSABLE_WORKFLOW_COMMIT_SHA }}
     with:
       build-folder: 'result/build'
       version: ${{ github.event.client_payload.tag }}
