@@ -26,8 +26,10 @@ env:
 jobs:
   call-reusable-workflow:
     name: Graasp test
+    env: 
+      WF: '${{ env.WORKFLOW }}@${{ env.SHA }}'
     # Reference reusable workflow file. Using the commit SHA is the safest for stability and security
-    uses: ${{env.WORKFLOW}}@${{env.SHA}}
+    uses: '${{ env.WORKFLOW }}@${{ env.SHA }}'
     with:
       build-folder: 'result/build'
       version: ${{ github.event.client_payload.tag }}
