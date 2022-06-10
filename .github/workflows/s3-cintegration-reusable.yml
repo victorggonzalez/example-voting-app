@@ -20,14 +20,15 @@ on:
 
 env:
   VERSION: 'latest'
+  SHA: ${{ secrets.REUSABLE_WORKFLOW_COMMIT_SHA }}
 
 jobs:
   call-reusable-workflow:
     name: Graasp test
     env:
-      SHA: ${{ secrets.REUSABLE_WORKFLOW_COMMIT_SHA }}
+      WORKFLOW: 'victorggonzalez/workflows/.github/workflows/s3-cintegration.yml@${{env.BUILD_FOLDER}}'
     # Reference reusable workflow file. Using the commit SHA is the safest for stability and security
-    uses: victorggonzalez/workflows/.github/workflows/s3-cintegration.yml@${{ secrets.REUSABLE_WORKFLOW_COMMIT_SHA }}
+    uses: ${{env.WORKFLOW}}
     with:
       build-folder: 'result/build'
       version: ${{ github.event.client_payload.tag }}
