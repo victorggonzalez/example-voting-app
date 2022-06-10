@@ -29,7 +29,7 @@ jobs:
     env: 
       WF: '${{ env.WORKFLOW }}@${{ env.SHA }}'
     # Reference reusable workflow file. Using the commit SHA is the safest for stability and security
-    uses: '${{ env.WORKFLOW }}@${{ env.SHA }}'
+    uses: ${{env.WF}}
     with:
       build-folder: 'result/build'
       version: ${{ github.event.client_payload.tag }}
