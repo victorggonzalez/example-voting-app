@@ -26,10 +26,13 @@ env:
 jobs:
   call-reusable-workflow:
     name: Graasp test
+    runs-on: ubuntu-latest
     # Reference reusable workflow file. Using the commit SHA is the safest for stability and security
-    run: |
-      echo $VERSION
-      echo $SHA
-      echo $WORKFLOW
+    steps:
+      - name: test step
+        run: |
+          echo $VERSION
+          echo $SHA
+          echo $WORKFLOW
 
 
