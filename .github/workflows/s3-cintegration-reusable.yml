@@ -26,7 +26,7 @@ env:
 jobs:
   call-reusable-workflow:
     name: Graasp test
-    uses: ${{ env.WF }}
+    uses: '${{ env.WF }}'
     with:
       build-folder: 'result/build'
       version: ${{ github.event.client_payload.tag }}
