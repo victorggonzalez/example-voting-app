@@ -20,7 +20,7 @@ on:
 
 env:
   VERSION: 'latest'
-  SHA: ${{ secrets.REUSABLE_WORKFLOW_COMMIT_SHA }}
+  SHA: ${{ secrets.REUSABLE_WORKFLOW_COMMIT_SHA_DEV }}
   WORKFLOW: 'victorggonzalez/workflows/.github/workflows/s3-cintegration.yml'
   WF_A: victorggonzalez/workflows/.github/workflows/s3-cintegration.yml@${{ secrets.REUSABLE_WORKFLOW_COMMIT_SHA }}
 
@@ -28,6 +28,7 @@ jobs:
   call-reusable-workflow:
     name: Graasp test
     runs-on: ubuntu-latest
+    environment: dev
     # Reference reusable workflow file. Using the commit SHA is the safest for stability and security
     steps:
       - name: test step
