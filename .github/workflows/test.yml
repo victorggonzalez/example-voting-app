@@ -34,7 +34,7 @@ jobs:
           echo $VERSION
           echo $SHA
           echo $WORKFLOW
-    steps:
+
       - name: test step 2
         env: 
           WF: '${{ env.WORKFLOW }}@${{ env.SHA }}'
