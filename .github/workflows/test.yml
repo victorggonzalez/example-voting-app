@@ -22,6 +22,7 @@ env:
   VERSION: 'latest'
   SHA: ${{ secrets.REUSABLE_WORKFLOW_COMMIT_SHA }}
   WORKFLOW: 'victorggonzalez/workflows/.github/workflows/s3-cintegration.yml'
+  WF_A: victorggonzalez/workflows/.github/workflows/s3-cintegration.yml@${{ secrets.REUSABLE_WORKFLOW_COMMIT_SHA }}
 
 jobs:
   call-reusable-workflow:
@@ -34,25 +35,10 @@ jobs:
           echo $VERSION
           echo $SHA
           echo $WORKFLOW
+          echo $WF_A
 
       - name: test step 2
         env: 
           WF: '${{ env.WORKFLOW }}@${{ env.SHA }}'
         run: |
           echo $WF
-
-      - name: Graasp test step 2
-        uses: ${{env.WORKFLOW}}@${{env.SHA}}
-        with:
-          build-folder: 'result/build'
-          version: ${{ github.event.client_payload.tag }}
-          sha: ${{ github.event.client_payload.sha }}
-        secrets:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
-          aws-s3-bucket-name: ${{ secrets.AWS_S3_BUCKET_NAME }}
-          app-id: ${{ secrets.APP_ID }}
-          graasp-domain-dev: ${{ secrets.GRAASP_DOMAIN_DEV }}
-          cloudfront-distribution: ${{ secrets.DEV_CLOUDFRONT_DISTRIBUTION }}
-          show-notifications: ${{ secrets.SHOW_NOTIFICATIONS }}
