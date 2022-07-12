@@ -30,7 +30,7 @@ jobs:
     with:
       ecs-task-definition: '.aws/demo-ci.json'
       tag: ${{ github.event.client_payload.tag }}
-      node-env: true
+      node-env: production
     secrets:
       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
