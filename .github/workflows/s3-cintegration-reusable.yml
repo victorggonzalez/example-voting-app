@@ -26,7 +26,7 @@ jobs:
   call-reusable-workflow:
     name: Graasp test
     environment: dev
-    uses: victorggonzalez/workflows/.github/workflows/s3-cintegration.yml
+    uses: victorggonzalez/workflows/.github/workflows/s3-cintegration.yml@main
     with:
       build-folder: 'result/build'
       version: ${{ github.event.client_payload.tag }}
