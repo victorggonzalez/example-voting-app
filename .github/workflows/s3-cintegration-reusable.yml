@@ -27,8 +27,6 @@ jobs:
     name: Graasp test
     environment: dev
     uses: victorggonzalez/workflows/.github/workflows/s3-cintegration.yml@main
-    with:
-      build-folder: 'result/build'
     secrets:
       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
