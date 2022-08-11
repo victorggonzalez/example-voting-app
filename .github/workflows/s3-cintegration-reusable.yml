@@ -9,8 +9,8 @@ on:
 
   #pull_request:
   #  branches: [master]
-  repository_dispatch:
-    types: [staging-deployment]
+  # repository_dispatch:
+  #   types: [staging-deployment]
   # push:
   #   tags:
   #     - v*
@@ -37,4 +37,3 @@ jobs:
       graasp-domain-dev: ${{ secrets.GRAASP_DOMAIN_DEV }}
       cloudfront-distribution: ${{ secrets.DEV_CLOUDFRONT_DISTRIBUTION }}
       show-notifications: ${{ secrets.SHOW_NOTIFICATIONS }}
-
