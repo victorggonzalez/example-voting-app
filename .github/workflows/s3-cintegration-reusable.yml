@@ -21,7 +21,7 @@ on:
 env:
   VERSION: 'latest'
   SHA: ${{ secrets.REUSABLE_WORKFLOW_COMMIT_SHA_DEV }}
-  WF: 'victorggonzalez/workflows/.github/workflows/s3-cintegration.yml@5ad156f86b2de177a81546db2ddc252a2ace36ca'
+  WF: 'victorggonzalez/workflows/.github/workflows/s3-cintegration.yml'
 
 jobs:
   call-reusable-workflow:
