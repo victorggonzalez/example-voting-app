@@ -21,13 +21,12 @@ on:
 env:
   VERSION: 'latest'
   SHA: ${{ secrets.REUSABLE_WORKFLOW_COMMIT_SHA_DEV }}
-  WF: 'victorggonzalez/workflows/.github/workflows/s3-cintegration.yml'
 
 jobs:
   call-reusable-workflow:
     name: Graasp test
     environment: dev
-    uses: '${{ env.WF }}'
+    uses: victorggonzalez/workflows/.github/workflows/s3-cintegration.yml
     with:
       build-folder: 'result/build'
       version: ${{ github.event.client_payload.tag }}
