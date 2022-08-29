@@ -61,8 +61,6 @@ jobs:
       run: |
         git status
         git tag
-    #     TAG=$(git tag)
-    #     echo "TAG=$TAG" >> $GITHUB_ENV
         git push --follow-tags
 
     # Get the latest tag and create a json with the repository name and tag
