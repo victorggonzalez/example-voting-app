@@ -6,13 +6,6 @@ on:
   workflow_dispatch:
     # Inputs the workflow accepts.
     inputs:
-      commit:
-        # Description to be shown in the UI instead of 'stack'
-        description: 'commit hash'
-        # Default value if no value is explicitly provided
-        default: ''
-        # Input does not have to be provided for the workflow to run
-        required: false
       release-type:
         # Description to be shown in the UI instead of 'stack'
         description: 'Format: first / patch / minor / major'
@@ -32,7 +25,6 @@ jobs:
       # triggered a workflow, this defaults to the reference or SHA for that event.
       # Otherwise, uses the default branch.
       with:
-        ref: ${{ inputs.commit }}
         token: ${{ secrets.REPO_PAT }}
 
     - name: Yarn
@@ -69,31 +61,25 @@ jobs:
       run: |
         git status
         git tag
-        TAG_NAME=$(git tag)
+    #     TAG=$(git tag)
+    #     echo "TAG=$TAG" >> $GITHUB_ENV
         git push --follow-tags
-    #     git push --follow-tags origin master
 
-    # - name: Commit step
-    #   id: commit
-    #   uses: stefanzweifel/git-auto-commit-action@v4
+    # Get the latest tag and create a json with the repository name and tag
+    # ::set-output name={name}::{value} Sets an output parameter for this step.
+    - name: Set tag
+      id: set-tag
+      run: |
+        REPOSITORY=$(echo '${{ github.repository }}')
+        TAG=$(git tag)
+        JSON=$(jq --null-input --arg repository "$REPOSITORY" --arg tag "$TAG" '{"repository": $repository, "tag": $tag}')
+        echo ::set-output name=json::${JSON//'%'/'%25'}
 
-    # - name: Set tag job
-    #   id: set-tag
-    #   run: |
-    #     COMMIT=$(git rev-list --tags --max-count=1)
-    #     TAG=$(git describe --tags $COMMIT)
-    #     REPOSITORY=$(echo '${{ github.repository }}')
-    #     REPOSITORY_NAME=$(echo $REPOSITORY | awk -F '/' '{print $2}')
-    #     echo $TAG
-    #     echo $REPOSITORY_NAME
-    #     JSON=$(jq --null-input --arg repo "$REPOSITORY" --arg tag "$TAG" '{"repo": $repo, "tag": $tag}')
-    #     echo $JSON
-    #     echo ::set-output name=json::${JSON//'%'/'%25'}
-
-    # - name: Repository Dispatch
-    #   uses: peter-evans/repository-dispatch@v2
-    #   with:
-    #     token: ${{ secrets.REPO_ACCESS_TOKEN }}
-    #     repository: victorggonzalez/workflows
-    #     event-type: update-staging-version
-    #     client-payload: ${{steps.set-tag.outputs.json}}
+    # Trigger an 'on: repository_dispatch' workflow to run in graasp-deploy repository
+    - name: Repository Dispatch
+      uses: peter-evans/repository-dispatch@v2
+      with:
+        token: ${{ secrets.REPO_PAT }}
+        repository: graasp/graasp-deploy
+        event-type: update-staging-version
+        client-payload: ${{steps.set-tag.outputs.json}}
