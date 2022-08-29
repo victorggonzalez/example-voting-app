@@ -16,7 +16,8 @@ on:
         - first
         - patch        
         - minor        
-        - major        
+        - major
+        default: patch
         required: true
 
 jobs:
@@ -61,19 +62,13 @@ jobs:
       # Side note, I can run any Linux command here, not just 'echo'
       run: yarn run release:first
 
-    - name: git pish tag
+    - name: push tag
       # Side note, I can run any Linux command here, not just 'echo'
       run: |
         git status
         git tag
         git push --follow-tags
 
-  dispatch:
-    name: Update staging versions
-    runs-on: ubuntu-latest
-    steps:
-    # Get the latest tag and create a json with the repository name and tag
-    # ::set-output name={name}::{value} Sets an output parameter for this step.
     - name: Set tag
       id: set-tag
       run: |
