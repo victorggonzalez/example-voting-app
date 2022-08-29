@@ -8,7 +8,7 @@ on:
     inputs:
       release-type:
         # Description to be shown in the UI instead of 'stack'
-        description: 'Format: first / patch / minor / major'
+        description: 'Select a release type'
         # Default value if no value is explicitly provided
         # Input does not have to be provided for the workflow to run
         type: choice
@@ -19,6 +19,9 @@ on:
         - major
         default: patch
         required: true
+      use-emoji:
+        type: boolean
+        description: Include  emojis
 
 jobs:
   create-release-candidate:
