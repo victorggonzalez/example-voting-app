@@ -34,9 +34,9 @@ jobs:
       with:
         ref: ${{ inputs.commit }}
 
-    - name: Run release
-      id: run-yarn
-      run: yarn --version
+    - name: Yarn
+      id: yarn-install
+      run: yarn
 
     - name: Configuration for major branch
       if: ${{ inputs.release-type == 'major' }}
