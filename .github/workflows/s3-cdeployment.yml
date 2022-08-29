@@ -10,7 +10,7 @@ on:
         # Description to be shown in the UI instead of 'stack'
         description: 'commit hash'
         # Default value if no value is explicitly provided
-        default: ''
+        default: ${{ github.ref }}
         # Input does not have to be provided for the workflow to run
         required: true
       release-type:

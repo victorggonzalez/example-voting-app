@@ -1,0 +1,17 @@
+{
+  "name": "example-voting-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:victorggonzalez/example-voting-app.git",
+  "author": "Víctor González <36533965+victorggonzalez@users.noreply.github.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "standard-version": "^9.5.0"
+  },
+  "scripts": {
+    "release:first": "standard-version -a --first-release",
+    "release:major": "standard-version -a --release-as major",
+    "release:minor": "standard-version -a --release-as minor",
+    "release:patch": "standard-version -a"
+  }
+}
