@@ -42,4 +42,4 @@ jobs:
         env: 
           WF: '${{ env.WORKFLOW }}@${{ env.SHA }}'
         run: |
-          echo $WF
+          echo $W
