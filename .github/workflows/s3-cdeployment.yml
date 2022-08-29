@@ -73,7 +73,9 @@ jobs:
       run: |
         git status
         git tag
-        git push --follow-tags
+        TAG_NAME=$(git tag)
+        git push 
+        git push origin HEAD:refs/tags/$TAG_NAME
 
     # - name: Commit step
     #   id: commit
