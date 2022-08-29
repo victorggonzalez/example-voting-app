@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.1.0 (2022-08-29)
+
+### 1.0.5 (2022-08-29)
+
+
+### Bug Fixes
+
+* error ([3dc2903](https://github.com/victorggonzalez/example-voting-app/commit/3dc29031bd9ae9210a4c1a8e15c952d1a0f2659c))
+
 ### 1.0.4 (2022-08-29)
 
 ### 1.0.3 (2022-08-29)
