@@ -10,12 +10,12 @@ on:
         # Description to be shown in the UI instead of 'stack'
         description: 'commit hash'
         # Default value if no value is explicitly provided
-        default: ${{ github.ref }}
+        default: ''
         # Input does not have to be provided for the workflow to run
         required: true
       release-type:
         # Description to be shown in the UI instead of 'stack'
-        description: 'Format: patch / minor / major'
+        description: 'Format: first / patch / minor / major'
         # Default value if no value is explicitly provided
         default: 'patch'
         # Input does not have to be provided for the workflow to run
@@ -27,14 +27,39 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Check out code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       # The branch, tag or SHA to checkout. When checking out the repository that
       # triggered a workflow, this defaults to the reference or SHA for that event.
       # Otherwise, uses the default branch.
       ref: ${{ inputs.commit }}
+
     - name: Run release
       id: run-yarn
       run: yarn --version
+
+    - name: Configuration for major branch
+      if: ${{ inputs.release-type == 'major' }}
+      # Side note, I can run any Linux command here, not just 'echo'
+      run: yarn run release:major
+
+    - name: Configuration for minor branch
+      if: ${{ inputs.release-type == 'minor' }}
+      # Side note, I can run any Linux command here, not just 'echo'
+      run: yarn run release:minor
+
+    - name: Configuration for patch branch
+      if: ${{ inputs.release-type == 'patch' }}
+      # Side note, I can run any Linux command here, not just 'echo'
+      run: yarn run release:patch
+
+    - name: Configuration for first branch
+      if: ${{ inputs.release-type == 'first' }}
+      # Side note, I can run any Linux command here, not just 'echo'
+      run: yarn run release:first
+
+    - name: git pish tag
+      # Side note, I can run any Linux command here, not just 'echo'
+      run: git push --follow-tags origin master
 
     # - name: Set tag job
     #   id: set-tag
