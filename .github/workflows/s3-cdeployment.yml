@@ -1,11 +1,25 @@
-name: Deploy X to development environment
+name: Update staging versions
 
 # Controls when the action will run.
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    tags:
-      - v*
+  # Allow the workflow to be manually triggered
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      commit:
+        # Description to be shown in the UI instead of 'stack'
+        description: 'commit hash'
+        # Default value if no value is explicitly provided
+        default: ''
+        # Input does not have to be provided for the workflow to run
+        required: true
+      release-type:
+        # Description to be shown in the UI instead of 'stack'
+        description: 'Format: patch / minor / major'
+        # Default value if no value is explicitly provided
+        default: 'patch'
+        # Input does not have to be provided for the workflow to run
+        required: true
 
 jobs:
   dispatch:
@@ -14,24 +28,31 @@ jobs:
     steps:
     - name: Check out code
       uses: actions/checkout@v2
+      # The branch, tag or SHA to checkout. When checking out the repository that
+      # triggered a workflow, this defaults to the reference or SHA for that event.
+      # Otherwise, uses the default branch.
+      ref: ${{ inputs.commit }}
+    - name: Run release
+      id: run-yarn
+      run: yarn --version
 
-    - name: Set tag job
-      id: set-tag
-      run: |
-        COMMIT=$(git rev-list --tags --max-count=1)
-        TAG=$(git describe --tags $COMMIT)
-        REPOSITORY=$(echo '${{ github.repository }}')
-        REPOSITORY_NAME=$(echo $REPOSITORY | awk -F '/' '{print $2}')
-        echo $TAG
-        echo $REPOSITORY_NAME
-        JSON=$(jq --null-input --arg repo "$REPOSITORY" --arg tag "$TAG" '{"repo": $repo, "tag": $tag}')
-        echo $JSON
-        echo ::set-output name=json::${JSON//'%'/'%25'}
+    # - name: Set tag job
+    #   id: set-tag
+    #   run: |
+    #     COMMIT=$(git rev-list --tags --max-count=1)
+    #     TAG=$(git describe --tags $COMMIT)
+    #     REPOSITORY=$(echo '${{ github.repository }}')
+    #     REPOSITORY_NAME=$(echo $REPOSITORY | awk -F '/' '{print $2}')
+    #     echo $TAG
+    #     echo $REPOSITORY_NAME
+    #     JSON=$(jq --null-input --arg repo "$REPOSITORY" --arg tag "$TAG" '{"repo": $repo, "tag": $tag}')
+    #     echo $JSON
+    #     echo ::set-output name=json::${JSON//'%'/'%25'}
 
-    - name: Repository Dispatch
-      uses: peter-evans/repository-dispatch@v2
-      with:
-        token: ${{ secrets.REPO_ACCESS_TOKEN }}
-        repository: victorggonzalez/workflows
-        event-type: update-staging-version
-        client-payload: ${{steps.set-tag.outputs.json}}
+    # - name: Repository Dispatch
+    #   uses: peter-evans/repository-dispatch@v2
+    #   with:
+    #     token: ${{ secrets.REPO_ACCESS_TOKEN }}
+    #     repository: victorggonzalez/workflows
+    #     event-type: update-staging-version
+    #     client-payload: ${{steps.set-tag.outputs.json}}
