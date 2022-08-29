@@ -67,6 +67,10 @@ jobs:
       # Side note, I can run any Linux command here, not just 'echo'
       run: git status
 
+    - name: Commit step
+      id: commit
+      uses: stefanzweifel/git-auto-commit-action@v4
+
     # - name: Set tag job
     #   id: set-tag
     #   run: |
