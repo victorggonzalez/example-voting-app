@@ -65,7 +65,7 @@ jobs:
 
     - name: git pish tag
       # Side note, I can run any Linux command here, not just 'echo'
-      run: git push --follow-tags origin HEAD
+      run: git status
 
     # - name: Set tag job
     #   id: set-tag
