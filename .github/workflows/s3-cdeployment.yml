@@ -72,9 +72,9 @@ jobs:
     #     TAG_NAME=$(git tag)
     #     git push --follow-tags origin master
 
-    # - name: Commit step
-    #   id: commit
-    #   uses: stefanzweifel/git-auto-commit-action@v4
+    - name: Commit step
+      id: commit
+      uses: stefanzweifel/git-auto-commit-action@v4
 
     # - name: Set tag job
     #   id: set-tag
