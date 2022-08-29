@@ -33,7 +33,7 @@ jobs:
       # Otherwise, uses the default branch.
       with:
         ref: ${{ inputs.commit }}
-        # token: ${{ secrets.REPO_ACCESS_TOKEN }}
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
 
     - name: GitHub Tag Name example
       run: |
