@@ -23,7 +23,8 @@ on:
 jobs:
   update-staging-version-workflow-release-candidate:
     name: Voting app
-    uses: graasp/graasp-deploy/.github/workflows/update-staging-version.yml@41-automate-tag-creation
+    uses: victorggonzalez/workflows/.github/workflows/update-staging-version.yml@main
     with:
       release-type: ${{ inputs.release-type }}
-    secrets: inherit
+    secrets:
+      token: ${{ secrets.REPO_ACCESS_TOKEN }}
