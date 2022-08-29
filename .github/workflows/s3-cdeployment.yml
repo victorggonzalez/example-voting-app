@@ -12,7 +12,7 @@ on:
         # Default value if no value is explicitly provided
         default: ''
         # Input does not have to be provided for the workflow to run
-        required: true
+        required: false
       release-type:
         # Description to be shown in the UI instead of 'stack'
         description: 'Format: first / patch / minor / major'
