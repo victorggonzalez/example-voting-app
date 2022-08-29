@@ -26,3 +26,4 @@ jobs:
     uses: victorggonzalez/workflows/.github/workflows/update-staging-version.yml@main
     with:
       release-type: ${{ inputs.release-type }}
+    secrets: inherit
