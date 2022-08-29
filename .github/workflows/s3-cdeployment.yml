@@ -13,18 +13,12 @@ on:
         default: 'patch'
         # Input does not have to be provided for the workflow to run
         required: true
-  # Triggers the workflow on push tag events.
-  push:
-    tags:
-      - v[0-9]+.[0-9]+.[0-9]+
 
 jobs:
-  dispatch:
-    name: Update staging versions
-    if: ${{ github.event_name == 'workflow_dispatch' }}
+  create-release-candidate:
+    name: Create new candidate
     runs-on: ubuntu-latest
     steps:
-    - run: echo "event name is:" ${{ github.event_name }} 
     - name: Check out code
       uses: actions/checkout@v3
       # The branch, tag or SHA to checkout. When checking out the repository that
@@ -69,6 +63,10 @@ jobs:
         git tag
         git push --follow-tags
 
+  dispatch:
+    name: Update staging versions
+    runs-on: ubuntu-latest
+    steps:
     # Get the latest tag and create a json with the repository name and tag
     # ::set-output name={name}::{value} Sets an output parameter for this step.
     - name: Set tag
