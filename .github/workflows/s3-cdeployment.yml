@@ -73,6 +73,7 @@ jobs:
       run: |
         git status
         git tag
+        git push --follow-tags
 
     # - name: Commit step
     #   id: commit
