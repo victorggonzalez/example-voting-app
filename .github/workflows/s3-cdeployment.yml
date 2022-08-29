@@ -33,6 +33,7 @@ jobs:
       # Otherwise, uses the default branch.
       with:
         ref: ${{ inputs.commit }}
+        token: ${{ secrets.REPO_ACCESS_TOKEN }}
 
     - name: GitHub Tag Name example
       run: |
@@ -74,8 +75,7 @@ jobs:
         git status
         git tag
         TAG_NAME=$(git tag)
-        git push 
-        git push origin HEAD:refs/tags/$TAG_NAME
+        git push --follow-tags origin master
 
     # - name: Commit step
     #   id: commit
