@@ -78,6 +78,6 @@ jobs:
       uses: peter-evans/repository-dispatch@v2
       with:
         token: ${{ secrets.REPO_PAT }}
-        repository: graasp/graasp-deploy
+        repository: victorggonzalez/workflows
         event-type: update-staging-version
         client-payload: ${{steps.set-tag.outputs.json}}
