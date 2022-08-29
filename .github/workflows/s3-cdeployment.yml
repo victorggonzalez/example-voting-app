@@ -65,11 +65,13 @@ jobs:
 
     - name: git pish tag
       # Side note, I can run any Linux command here, not just 'echo'
-      run: git status
+      run: |
+        git status
+        git tag
 
-    - name: Commit step
-      id: commit
-      uses: stefanzweifel/git-auto-commit-action@v4
+    # - name: Commit step
+    #   id: commit
+    #   uses: stefanzweifel/git-auto-commit-action@v4
 
     # - name: Set tag job
     #   id: set-tag
