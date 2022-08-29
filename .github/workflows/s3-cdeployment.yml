@@ -10,8 +10,13 @@ on:
         # Description to be shown in the UI instead of 'stack'
         description: 'Format: first / patch / minor / major'
         # Default value if no value is explicitly provided
-        default: 'patch'
         # Input does not have to be provided for the workflow to run
+        type: choice
+        options: 
+        - first
+        - patch        
+        - minor        
+        - major        
         required: true
 
 jobs:
