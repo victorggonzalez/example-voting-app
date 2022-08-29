@@ -22,7 +22,7 @@ on:
 
 jobs:
   update-staging-version-workflow-release-candidate:
-    name: Create new candidate
+    name: Voting app
     uses: victorggonzalez/workflows/.github/workflows/update-staging-version.yml@main
     with:
       release-type: ${{ inputs.release-type }}
