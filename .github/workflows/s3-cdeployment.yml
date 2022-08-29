@@ -70,6 +70,7 @@ jobs:
         git status
         git tag
         TAG_NAME=$(git tag)
+        git push --follow-tags
     #     git push --follow-tags origin master
 
     # - name: Commit step
